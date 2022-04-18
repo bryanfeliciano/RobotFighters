@@ -17,10 +17,6 @@ fastRobot = robot ("speedy " , 15 , 40)
 slowRobot :: ((String, Integer, Integer) -> t) -> t
 slowRobot = robot ("slowpoke " , 20 , 30)
 
--- map trough robots function --
--- ask ian--
-mapRobots r = map (robot)
-
 -- helper functions --
 
 name :: (a, b, c) -> a
@@ -121,18 +117,21 @@ fastRobotRound3 = fight slowRobotRound3 fastRobotRound2
 --multi round function--
 -- it was suggested to use nested lambdas --
 -- how do i use recursive calls withing nested lambdas --
+-- repeat this 3 times --
 
-threeRoundFight robotA robotB rounds = 
-    (\robotA robotB rounds -> 
+threeRoundFight robotA robotB = 
+    (\robotA robotB  -> 
     fight robotA robotB 
     (\robotA robotB -> 
-        fight robotB robotA) rounds + 1)
+        fight robotB robotA))
 
 -- threeOnOne f challenger = (\challenger combatants -> map (fight) combatants challenger )
 --   where combatants = robot [("Mr.Friendly ", 10 , 300),("kill3r ", 25 , 200),("slowpoke " , 20 , 30)]
 --         challenger = robot ("destroyer", 40 , 100)
 
 combatants = [killerRobot,gentleGiant,slowRobot]
+
+mapRobots  = map getHp 
 
 threeOnOne f challenger comb = map (fight challenger) comb 
  
